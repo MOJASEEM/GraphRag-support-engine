@@ -1,0 +1,55 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# Environment variables
+.env
+.env.*
+
+# Packaging
+build/
+dist/
+*.egg-info/
+*.egg
+*.whl
+
+# Test and coverage
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+.pytest_cache/
+
+# IDE/editor
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Qdrant or local data storage
+qdrant_storage/
+
+# Logs
+*.log
+
+# Local notebooks
+.ipynb_checkpoints/
+
+# Optional: ignore local data exports and cache files
+*.sqlite3
+*.db
+*.db-journal
