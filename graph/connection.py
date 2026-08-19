@@ -56,7 +56,7 @@ def get_driver():
             "and NEO4J_PASSWORD are set in your .env file."
         )
 
-    last_error = None
+    errors: list[str] = []
     for candidate_uri in _candidate_uris(uri):
         driver = None
         try:
@@ -69,15 +69,15 @@ def get_driver():
                 session.run("RETURN 1 AS ok").single()
             return driver
         except Exception as exc:
-            last_error = exc
+            errors.append(f"{candidate_uri}: {exc}")
             if driver is not None:
                 driver.close()
 
     raise RuntimeError(
         "Could not connect to Neo4j. Check that the configured URI is reachable "
         "and that NEO4J_URI, NEO4J_USER, and NEO4J_PASSWORD are correct. "
-        f"Last error: {last_error}"
-    ) from last_error
+        f"Attempted endpoints: {' | '.join(errors)}"
+    )
 
 
 def verify_connection():
