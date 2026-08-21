@@ -1,0 +1,66 @@
+:root {
+  --ink: #16233A;
+  --ink-soft: #4A5872;
+  --paper: #ECEEE6;
+  --paper-card: #F8F8F3;
+  --brass: #B8863F;
+  --sage: #5F7A63;
+  --rule: #D9DACD;
+  --font-display: "Fraunces", serif;
+  --font-body: "Inter", sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font-body); }
+
+.shell { display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+
+.topbar { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 18px 28px; border-bottom: 1px solid var(--rule); background: rgba(248, 248, 243, 0.72); }
+.brand-lockup { display: flex; align-items: center; gap: 12px; }
+.brand-mark { font-family: var(--font-display); color: var(--brass); font-size: 22px; }
+.topbar h1, .panel-heading h2 { font-family: var(--font-display); font-weight: 500; margin: 0; }
+.topbar h1 { font-size: 18px; }
+.topbar p { color: var(--ink-soft); font-size: 11px; margin: 3px 0 0; }
+.system-status { color: var(--sage); display: flex; align-items: center; gap: 7px; font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; }
+.system-status span { width: 7px; height: 7px; border-radius: 50%; background: var(--sage); box-shadow: 0 0 0 4px rgba(95, 122, 99, 0.14); }
+
+.main-grid { flex: 1; display: grid; grid-template-columns: minmax(0, 1fr) minmax(360px, 1fr); grid-template-rows: minmax(0, 1fr); overflow: hidden; min-height: 0; }
+@media (max-width: 760px) { .main-grid { grid-template-columns: 1fr; grid-template-rows: minmax(420px, 1fr) minmax(300px, 1fr); overflow: visible; } }
+
+.chat-panel { display: flex; flex-direction: column; border-right: 1px solid var(--rule); padding: 28px; min-height: 0; }
+.messages { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; gap: 14px; margin: 26px 0 20px; min-height: 0; overflow-y: auto; }
+
+.panel-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; }
+.panel-heading h2 { font-size: clamp(22px, 2.4vw, 30px); line-height: 1.1; }
+.eyebrow { color: var(--brass); font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em; margin: 0 0 8px; text-transform: uppercase; }
+.panel-index { color: var(--ink-soft); font-family: var(--font-mono); font-size: 11px; }
+.graph-panel { padding: 28px; display: flex; flex-direction: column; min-height: 0; }
+.graph-heading { flex: 0 0 auto; }
+
+.msg { max-width: 90%; padding: 10px 14px; border-radius: 10px; font-size: 14px; line-height: 1.55; }
+.msg-user { align-self: flex-end; background: var(--ink); color: var(--paper); border-radius: 12px 12px 2px 12px; }
+.msg-bot { align-self: flex-start; background: var(--paper-card); border: 1px solid var(--rule); border-radius: 2px 12px 12px 12px; }
+
+.input-row { display: flex; gap: 8px; flex: 0 0 auto; }
+.input-row input { min-width: 0; flex: 1; padding: 13px 14px; border: 1px solid var(--rule); border-radius: 8px; background: var(--paper-card); color: var(--ink); font-family: inherit; font-size: 14px; outline: none; }
+.input-row input:focus { border-color: var(--brass); box-shadow: 0 0 0 3px rgba(184, 134, 63, 0.14); }
+.input-row button { display: inline-flex; align-items: center; gap: 12px; padding: 10px 16px; background: var(--ink); color: var(--paper); border: none; border-radius: 8px; cursor: pointer; font-family: var(--font-mono); font-size: 12px; }
+.input-row button:hover:not(:disabled) { background: var(--brass); }
+.input-row button:disabled { cursor: wait; opacity: 0.65; }
+
+#graphCanvas { flex: 1; width: 100%; min-height: 0; margin-top: 18px; background: var(--paper-card); border: 1px solid var(--rule); border-radius: 8px; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+
+.node-circle { transition: fill 0.4s ease, r 0.3s ease; }
+.node-label { font-family: var(--font-mono); font-size: 10px; fill: var(--ink); text-anchor: middle; }
+.graph-empty { fill: var(--ink-soft); font-family: var(--font-mono); font-size: 10px; text-anchor: middle; }
+.edge-line { stroke: var(--rule); stroke-width: 1.5; transition: stroke 0.4s ease; }
+.edge-line.active { stroke: var(--brass); }
+
+@media (max-width: 760px) {
+  .shell { height: auto; min-height: 100vh; overflow: visible; }
+  .topbar, .chat-panel, .graph-panel { padding: 20px; }
+  .topbar p { display: none; }
+  .chat-panel { border-right: 0; border-bottom: 1px solid var(--rule); }
+  .graph-panel { min-height: 300px; }
+}
